@@ -1,4 +1,6 @@
 Curve Analysis and Anomaly Detection Tool
+
+
 Overview
 This project is a Python-based desktop tool for analyzing rocket telemetry data and detecting anomalies in mission parameters.
 It enables engineers and analysts to visualize parameter curves, detect anomalies using machine learning algorithms, and export results for further study.
