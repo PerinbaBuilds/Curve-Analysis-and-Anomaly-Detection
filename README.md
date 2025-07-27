@@ -66,9 +66,6 @@ Anomalies displayed in a table.
 
 Export results as a CSV file.
 
-Screenshots
-(Insert screenshots of the GUI here – curve analysis panel and anomaly detection panel)
-
 Future Enhancements
 Enhanced right-side summary and severity visualization.
 
