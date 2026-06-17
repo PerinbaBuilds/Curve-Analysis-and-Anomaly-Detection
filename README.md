@@ -2,6 +2,8 @@
 
 An interactive desktop application for analysing launch vehicle telemetry data through curve deviation analysis and machine learning-based anomaly detection. Developed at Satish Dhawan Space Centre (SDSC-SHAR), ISRO, as part of an academic internship.
 
+> **Note:** This public repository is a replicated, sample version of the original work for portfolio and demonstration purposes. The primary implementation was carried out at SDSC-SHAR, ISRO, using real mission telemetry data; that original codebase and data are confidential and cannot be published. This repository reproduces the same system design and functionality on sample data.
+
 ## Objective
 
 To develop a compact, interactive desktop tool that enables engineers to perform curve deviation analysis and anomaly detection on launch vehicle telemetry data. The system reduces manual effort by combining machine learning algorithms with real-time visualisations, allowing analysts to identify abnormal patterns across mission datasets with configurable thresholds and severity classification.
@@ -64,7 +66,7 @@ The application follows a layered, modular design with four independent componen
 
 ## Database Schema
 
-The application connects to a local SQLite database (`sds1.db`) with the following structure:
+The application connects to a local SQLite database (`database.db`) with the following structure:
 
 | Table | Description |
 |---|---|
@@ -87,6 +89,13 @@ The application connects to a local SQLite database (`sds1.db`) with the followi
 | Interpolation | SciPy |
 | Development Environment | PyCharm 2021.1, Windows 10 |
 
+## Documentation
+
+| Document | Description |
+|---|---|
+| [docs/SRS.md](docs/SRS.md) | Software Requirements Specification — functional & non-functional requirements |
+| [docs/SDD.md](docs/SDD.md) | Software Design Document — architecture, data design, algorithms, deployment |
+
 ## Getting Started
 
 ### Prerequisites
@@ -96,11 +105,18 @@ The application connects to a local SQLite database (`sds1.db`) with the followi
 
 Install all dependencies:
 
-    pip install pandas numpy matplotlib scikit-learn scipy
+    pip install -r requirements.txt
+
+A `Dockerfile` and `docker-compose.yml` are also provided for a containerized, reproducible environment — see [Running with Docker](#running-with-docker) below.
 
 ### Database Setup
 
-Place the `sds1.db` SQLite database file in the project root directory. The database must contain telemetry records in the schema described above.
+The application reads/writes a local SQLite database named `database.db` in the project root. To build it from scratch:
+
+    python database_creation.py      # creates the schema (run once per new database.db)
+    python database_insertion.py     # bulk-loads .dat telemetry files into it
+
+`database_insertion.py` expects telemetry `.dat` files under `~/Desktop/rocket_data/<vehicle>_<mission>/<parameter>.dat` — see `docs/SRS.md` (Section 2.6) for the exact folder/file convention. Reference bounds (nominal/upper/lower) can instead be supplied later, on demand, through the Curve Analysis GUI itself (see Usage Workflow step 2 below).
 
 ### Running the Application
 
@@ -111,6 +127,17 @@ Curve Analysis module:
 Anomaly Detection module:
 
     python anomaly_detection.py
+
+### Running with Docker
+
+This is a Tkinter desktop GUI, not a web service, so the container forwards its display to the host's X server rather than exposing a port. On Linux:
+
+    xhost +local:docker
+    docker compose run --rm curve-analysis
+    docker compose run --rm anomaly-detection
+    xhost -local:docker
+
+`database.db` is bind-mounted into the container so data persists between runs. See `docs/SDD.md` (Section 8) for the full deployment design and rationale.
 
 ## Usage Workflow
 
