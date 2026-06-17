@@ -1,0 +1,33 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Databases (generated locally from database_creation.py / database_insertion.py)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Anomaly Detection export artifacts (anomalies_<vehicle>_<mission>_<parameter>_<algo>_<timestamp>.csv)
+anomalies_*.csv
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
