@@ -2,7 +2,7 @@
 
 An interactive desktop application for analysing launch vehicle telemetry data through curve deviation analysis and machine learning-based anomaly detection. Developed at Satish Dhawan Space Centre (SDSC-SHAR), ISRO, as part of an academic internship.
 
-> **Note:** This public repository is a replicated, sample version of the original work for portfolio and demonstration purposes. The primary implementation was carried out at SDSC-SHAR, ISRO, using real mission telemetry data; that original codebase and data are confidential and cannot be published. This repository reproduces the same system design and functionality on sample data.
+> **Note:** This public repository is a replicated, sample version of the original work for portfolio and demonstration purposes. The primary implementation was carried out at SDSC-SHAR, ISRO, using mission telemetry data; that original codebase and data are confidential and cannot be published. This repository reproduces the same system design and functionality on sample data.
 
 ## Objective
 
