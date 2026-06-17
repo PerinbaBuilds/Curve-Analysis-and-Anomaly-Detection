@@ -1,0 +1,26 @@
+# GUI apps in containers need access to the host's X server. On Linux:
+#   xhost +local:docker
+#   docker compose run --rm curve-analysis
+# (run "xhost -local:docker" afterwards to revoke access again)
+#
+# Both services share the same image/build; only the launched script differs.
+services:
+  curve-analysis:
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./database.db:/app/database.db
+    network_mode: host
+    command: ["python", "curve_analysis.py"]
+
+  anomaly-detection:
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./database.db:/app/database.db
+    network_mode: host
+    command: ["python", "anomaly_detection.py"]
